@@ -1,0 +1,24 @@
+.navbar {
+    margin-bottom: 65px;
+}
+
+.nav-link span {
+    visibility: hidden;
+    width: 80px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    opacity: 65%;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    top: 50px;
+    /* left: 10%; */
+}
+
+.nav-link:hover span {
+    visibility: visible;
+}
