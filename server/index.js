@@ -1,30 +1,27 @@
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 const cors = require("cors");
+const dal = require("./dal.js");
 
 app.use(express.static("public"));
 app.use(cors());
 
-app.get("/account/create/:name/:email/:password", function (req, res) {
-  res.send({
-    name: req.params.name,
-    email: req.params.email,
-    password: req.params.password,
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.get("/users", async (req, res) => {
+  dal.allUsers().then((docs) => {
+    console.log(docs);
+    res.send(docs);
   });
 });
 
-app.get("/account/login/:email/:password", function (req, res) {
-  res.send({
-    email: req.params.email,
-    password: req.params.password,
-  });
-});
-
-app.get("/account/all", function (req, res) {
-  res.send({
-    name: "peter",
-    email: "parker@mit.edu",
-    password: "secret",
+app.post("/users/create", (req, res) => {
+  const { name, email, password } = req.body;
+  dal.createUser(name, email, password).then((user) => {
+    console.log(user);
+    res.send(user);
   });
 });
 

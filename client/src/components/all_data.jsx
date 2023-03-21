@@ -1,6 +1,11 @@
 import React from "react";
 import { Card, UserContext } from "./context.js";
 
+async function getUsers() {
+  let response = await fetch("users");
+  return await response.json();
+}
+
 export default function AllData() {
   const ctx = React.useContext(UserContext);
   let counter = 0;
@@ -23,6 +28,26 @@ export default function AllData() {
       );
     });
   });
+
+  const rows2 = getUsers().then((u) => {
+    let users = u;
+    let counter2 = 0;
+    const rows2 = users.map((user, index1) => {
+      counter2 += 1;
+      return (
+        <tr key={counter2} className="table-dark">
+          <td>{counter}</td>
+          <td>{user.name}</td>
+          <td>{user.email}</td>
+          <td>"lala"</td>
+          <td>"lele"</td>
+          <td>{user.balance}</td>
+        </tr>
+      );
+    });
+    return rows2;
+  });
+
   return (
     <>
       <Card
@@ -40,7 +65,7 @@ export default function AllData() {
                 <th>Current Balance</th>
               </tr>
             </thead>
-            <tbody>{rows}</tbody>
+            <tbody>{rows3}</tbody>
           </table>
         }
       ></Card>

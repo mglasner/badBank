@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, UserContext } from "./context.js";
+import { Card } from "./context.js";
 
 export default function CreateAccount() {
   const [show, setShow] = React.useState(true);
@@ -7,7 +7,6 @@ export default function CreateAccount() {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const ctx = React.useContext(UserContext);
 
   function validate(field, label) {
     if (!field) {
@@ -32,7 +31,19 @@ export default function CreateAccount() {
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
     if (!validatePassword(password)) return;
-    ctx.users.push({ name, email, password, balance: 0, history: [] });
+
+    fetch("users/create", {
+      method: "POST",
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+
     setShow(false);
   }
 
