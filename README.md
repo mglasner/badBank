@@ -4,7 +4,8 @@
 
 ## Description
 
-    This project is from Professional Certificate in Coding: Full Stack Development with MERN, from MIT. The objective is to make a three tier application, React App for front end, Node/Express App for backend and MongoDb as Database.
+    This project is from Professional Certificate in Coding: Full Stack Development with MERN, from MIT.
+    The objective is to make a three tier application, React App for front end, Node/Express App for backend and MongoDb as Database.
 
 ## Installation
 
