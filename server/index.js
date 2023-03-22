@@ -12,7 +12,6 @@ app.use(bodyParser.json());
 
 app.get("/users", async (req, res) => {
   dal.allUsers().then((docs) => {
-    console.log(docs);
     res.send(docs);
   });
 });
@@ -20,7 +19,6 @@ app.get("/users", async (req, res) => {
 app.post("/users/create", (req, res) => {
   const { name, email, password } = req.body;
   dal.createUser(name, email, password).then((user) => {
-    console.log(user);
     res.send(user);
   });
 });

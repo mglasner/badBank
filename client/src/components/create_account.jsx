@@ -32,17 +32,19 @@ export default function CreateAccount() {
     if (!validate(password, "password")) return;
     if (!validatePassword(password)) return;
 
-    fetch("users/create", {
-      method: "POST",
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        password: password,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    });
+    (async () => {
+      await fetch("users/create", {
+        method: "POST",
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      });
+    })();
 
     setShow(false);
   }

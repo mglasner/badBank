@@ -1,15 +1,18 @@
 import React from "react";
-import { Card, UserContext } from "./context.js";
-
-async function getUsers() {
-  let response = await fetch("users");
-  return await response.json();
-}
+import { Card } from "./context.js";
 
 export default function AllData() {
-  const ctx = React.useContext(UserContext);
+  const [data, setData] = React.useState([]);
+  React.useEffect(() => {
+    fetch("/users")
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      });
+  }, []);
+
   let counter = 0;
-  const rows = ctx["users"].map((user, index1) => {
+  const rows = data.map((user, index1) => {
     return user.history.map((record, index2) => {
       counter += 1;
       return (
@@ -29,25 +32,6 @@ export default function AllData() {
     });
   });
 
-  const rows2 = getUsers().then((u) => {
-    let users = u;
-    let counter2 = 0;
-    const rows2 = users.map((user, index1) => {
-      counter2 += 1;
-      return (
-        <tr key={counter2} className="table-dark">
-          <td>{counter}</td>
-          <td>{user.name}</td>
-          <td>{user.email}</td>
-          <td>"lala"</td>
-          <td>"lele"</td>
-          <td>{user.balance}</td>
-        </tr>
-      );
-    });
-    return rows2;
-  });
-
   return (
     <>
       <Card
@@ -65,7 +49,7 @@ export default function AllData() {
                 <th>Current Balance</th>
               </tr>
             </thead>
-            <tbody>{rows3}</tbody>
+            <tbody>{rows}</tbody>
           </table>
         }
       ></Card>
